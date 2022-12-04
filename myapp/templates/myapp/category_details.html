@@ -1,0 +1,82 @@
+{% extends 'myapp/base.html' %}
+{% load static %}
+{% block title %} Shop {% endblock title %}
+
+
+{% block content %}
+
+    <!-- Shop Start -->
+    <div class="container-fluid">
+        <div class="row px-xl-5">
+            <!-- Shop Sidebar Start -->
+            <div class="col-lg-3 col-md-4">
+                
+                <!-- Color Start -->
+                <h5 class="section-title position-relative text-uppercase mb-3 mt-3"><span class="bg-secondary pr-3">Filter by company name</span></h5>
+                <div class="bg-light p-4 mb-30">
+                        {% if cm %}
+                        {% for c in cm %}
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                            <!-- <label class="custom-control-label" for="color-1">{{c.name}}</label> -->
+                            <a href="{% url 'company-wise' c.id %}" class="custom-control-label">{{c.name}}</a>
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+                        
+                </div>
+                <!-- Color End -->
+            </div>
+            <!-- Shop Sidebar End -->
+
+            <!-- Shop Product Start -->
+            <!-- <div class="col-lg-9 col-md-8">
+                <div class="row pb-3">
+                    <div class="col-12 pb-1">
+                        <div class="d-flex align-items-center justify-content-between mb-4">
+                            <div>
+                                <button class="btn btn-sm btn-light"><i class="fa fa-th-large"></i></button>
+                                <button class="btn btn-sm btn-light ml-2"><i class="fa fa-bars"></i></button>
+                            </div>
+                            <div class="ml-2">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Sorting</button>
+                                    
+                                </div>
+                                <div class="btn-group ml-2">
+                                    <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Showing</button>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <a class="dropdown-item" href="#">10</a>
+                                        <a class="dropdown-item" href="#">20</a>
+                                        <a class="dropdown-item" href="#">30</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                    {% if cp %}
+                    {% for c in cp %}
+                    <div class="col-lg-4 col-md-6 col-sm-6 pb-1">
+                        <div class="product-item bg-light mb-4">
+                            <div class="product-img position-relative overflow-hidden">
+                                <img class="img-fluid w-100" src="{{c.image.url}}" alt="">
+                                
+                            </div>
+                            <div class="text-center py-4">
+                                <a class="h5 text-decoration-none text-truncate" href="{% url 'detail' c.id %}">{{c.title}}</a>
+                                <div class="d-flex align-items-center justify-content-center mt-2">
+                                    <h6>Validity : </h6><h6 class="text-muted ml-2">{{c.validity}}</h6>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-center mb-1">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                
+            <!-- Shop Product End -->
+        </div>
+    </div>
+    <!-- Shop End -->
+
+{% endblock content %}

@@ -1,0 +1,76 @@
+{% extends 'myapp/base.html' %}
+{% load static %}
+{% block title %} Full Detail with code{% endblock %}
+
+{% block profileheader %}
+{% include 'myapp/profile-mid-portion.html' %}
+{% endblock profileheader %}
+
+{% block content %}
+{% for cp in cps %}
+    <!-- Shop Detail Start -->
+    <div class="container pt-5 pb-3">
+      <h4 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Featured Products</span></h4>
+      <div class="row px-xl-5">
+          
+            <div class="col-lg-4 mb-30">
+                <div id="product-carousel" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner bg-light">
+                        <div class="carousel-item active">
+                            <img class="w-100 h-100" src="{{cp.image.url}}" alt="Image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-7 h-auto mb-30">
+                <div class="h-100 bg-light p-30">
+                    <h3>{{cp.title}}</h3>
+                    <div class="d-flex mb-3">
+                        <small class="pt-1"> </small>
+                    </div>
+                    <div class="d-flex mb-3">
+                        <strong class="text-dark mr-3">Validity : </strong>
+                        <span>{{cp.validity}}</span>
+                    </div>
+                    <p class="mb-4">{{cp.description|striptags }}</p>
+
+                    <div class="d-flex align-items-center mb-2 pt-2">
+                        <div class="alert alert-success" id="code">{{cp.code|upper}}</div><div class="btn btn-primary alert" id="copy">Copy</div>
+                    </div>
+                    <div class="d-flex pt-2">
+                        <strong class="text-dark mr-2">Share on:</strong>
+                        <div class="d-inline-flex">
+                            <a class="text-dark px-2" href="">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a class="text-dark px-2" href="">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a class="text-dark px-2" href="">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a class="text-dark px-2" href="">
+                                <i class="fab fa-pinterest"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+      </div>
+      </div>
+      {% endfor %}
+</div>
+<script>
+
+    let code = document.querySelector('#code').innerText;
+    console.log(code);
+    let copybtn = document.querySelector('#copy');
+    copybtn.addEventListener('click', async () => {
+        await navigator.clipboard.writeText(code);
+        console.log('copied');
+    });
+</script>
+
+</div>
+    {% endblock content %}

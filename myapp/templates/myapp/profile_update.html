@@ -1,0 +1,52 @@
+{% extends 'myapp/base.html' %}
+{% load static %}
+{% block title %}Add Coupon{% endblock title %}
+
+{% block profileheader %}
+{% include 'myapp/profile-mid-portion.html' %}
+{% endblock profileheader %}
+
+{% block content %}
+
+    <div class="row px-xl-5">
+      <div class="container-fluid pt-2">
+        <h4 class="section-title position-relative text-uppercase mx-5 mb-2"><span class="bg-secondary pr-3">Update Profile</span></h4>
+        <div class="row px-xl-5">
+          {% if messages %}
+          {% for message in messages %}
+          <p {% if message.tags %} class="alert alert-{{message.tags}} mb-1" {% endif %}> {{message}} </p>
+          {% endfor %}
+       {% endif %}
+          <div class="col-md-10">
+
+          
+            <form action="" method="post" novalidate class="shadow p-3" enctype="multipart/form-data">
+              {% if form.non_field_errors %}
+              {% for error in form.non_field_errors %}
+              <p class="alert alert-danger">{{error}}</p>
+              {% endfor %}
+              {% endif %}
+          
+              {% csrf_token %}
+              {% for fm in forms %}
+              <div class="form-group">
+                  {{fm.label_tag}} {{fm}} <small class="text-danger">{{fm.errors|striptags}}</small>
+              </div>
+              {% endfor %}
+              {% for fm in forms2 %}
+              <div class="form-group">
+                  {{fm.label_tag}} {{fm}} <small class="text-danger">{{fm.errors|striptags}}</small>
+              </div>
+              {% endfor %}
+              <input type="submit" class="btn btn-primary mt-4" value="Submit">
+              <br>
+            </form>
+
+            
+          </div>
+        </div>
+      </div>
+  </div>
+
+</div>
+{% endblock content %}

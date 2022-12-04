@@ -1,0 +1,35 @@
+{% load static %}
+
+<div class="container">
+  <div class="row my-3 bg-light">
+    <div class="col-3 py-2 align-self-start">
+      
+      {% for pd in profiledetail %}
+      {% if pd.dp %}
+      <img src="{{pd.dp.url}}" alt="Profile Picture" class="rounded mx-auto d-block" style="border-radius: 40%;" width="100px" height="100px">
+      {% else %}
+      <img src="{% static 'myapp/images/user.jpg' %}" alt="Profile Picture" class="mx-auto d-block" style="border-radius: 50%;" width="100px" height="100px">
+      {% endif %}
+    </div>
+    <div class="col-3 py-2">
+      <h3>{{request.user}} {{request.user.profile}}</h3>
+      <h4>Credits : {{pd.credits}}</h4>
+      {% endfor %}
+    </div>
+  </div>
+  
+  <hr>
+  <div class="row bg-dark">
+    <a href="{% url 'add-coupon' %}" class="nav-item nav-link">Add Coupon</a>
+    <a href="{% url 'profile' %}" class="nav-item nav-link">Collected Coupons</a>
+    <a href="{% url 'add-company' %}" class="nav-item nav-link">Add Company</a>
+    <a href="{% url 'add-category' %}" class="nav-item nav-link">Add Category</a>
+    <a href="{% url 'added-coupons' %}" class="nav-item nav-link">Added Coupons</a>
+    <a href="{% url 'expired-coupons' %}" class="nav-item nav-link">Expired Coupons</a> 
+    <a href="{% url 'profile-update' %}" class="nav-item nav-link">Settings</a>        
+  </div>
+
+
+          
+
+  

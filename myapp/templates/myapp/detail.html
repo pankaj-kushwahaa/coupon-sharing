@@ -1,0 +1,60 @@
+{% extends 'myapp/base.html' %}
+{% load static %}
+{% block title %} {% endblock %}
+
+{% block content %}
+
+
+
+    <!-- Shop Detail Start -->
+    <div class="container-fluid pb-5">
+        <div class="row px-xl-4">
+
+            <div class="col-lg-4 mb-30">
+                <div id="product-carousel" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner bg-light">
+                        <div class="carousel-item active">
+                            <img class="w-100 h-100" src="{{cp.image.url}}" alt="Image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-7 h-auto mb-30">
+                <div class="h-100 bg-light p-30">
+                    <h3>{{cp.title}}</h3>
+                    <div class="d-flex mb-3">
+                        <small class="pt-1"> </small>
+                    </div>
+                    <div class="d-flex mb-3">
+                        <strong class="text-dark mr-3">Validity : </strong>
+                        <span>{{cp.validity}}</span>
+                    </div>
+                    <div class="mb-4">{{cp.description|striptags}}</div>
+
+                    <div class="d-flex align-items-center mb-2 pt-2">
+                        
+                        <!-- <button class="btn btn-primary px-3"> Collect </button> -->
+                        <a href="{% url 'collect' cp.id %}" class="btn btn-primary px-3">Collect</a>
+                    </div>
+                    <div class="d-flex pt-2">
+                        <strong class="text-dark mr-2">Share on:</strong>
+                        <div class="d-inline-flex">
+                            <a class="text-dark px-2" href="">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a class="text-dark px-2" href="">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a class="text-dark px-2" href="">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a class="text-dark px-2" href="">
+                                <i class="fab fa-pinterest"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+      </div>
+    {% endblock content %}
