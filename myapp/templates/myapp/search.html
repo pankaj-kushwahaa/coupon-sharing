@@ -1,6 +1,6 @@
 {% extends 'myapp/base.html' %}
 {% load static %}
-{% block title %} Shop {% endblock title %}
+{% block title %} Coupons shorted by Company {% endblock title %}
 
 
 {% block content %}
@@ -10,21 +10,8 @@
         <div class="row px-xl-5">
             <!-- Shop Sidebar Start -->
             <div class="col-lg-3 col-md-4">
-                
                 <!-- Color Start -->
-                <h5 class="section-title position-relative text-uppercase mb-3 mt-3"><span class="bg-secondary pr-3">Filter by category name</span></h5>
-                <div class="bg-light p-4 mb-30">
-                        {% if cm %}
-                        {% for c in cm %}
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <!-- <label class="custom-control-label" for="color-1">{{c.name}}</label> -->
-                            <a href="{% url 'company-wise' c.id %}" class="custom-control-label">{{c.name}}</a>
-                        </div>
-                        {% endfor %}
-                        {% endif %}
-                        
-                </div>
-                <!-- Color End -->
+              <h5 class="section-title position-relative text-uppercase mb-3 mt-3"><span class="bg-secondary pr-3">Filter by Search = "{{s}}"</span></h5>
             </div>
             <!-- Shop Sidebar End -->
 
@@ -53,8 +40,8 @@
                             </div>
                         </div>
                     </div> -->
-                    {% if cp %}
-                    {% for c in cp %}
+                    {% if search %}
+                    {% for c in search %}
                     <div class="col-lg-4 col-md-6 col-sm-6 pb-1">
                         <div class="product-item bg-light mb-4">
                             <div class="product-img position-relative overflow-hidden">
@@ -72,6 +59,9 @@
                         </div>
                     </div>
                     {% endfor %}
+                    {% else %}
+                      <br><br>
+                      <h5 class="section-title position-relative text-uppercase mb-3 mt-3"><span class="bg-secondary pr-3">No Match Found</span></h5>
                     {% endif %}
                 
             <!-- Shop Product End -->

@@ -25,21 +25,13 @@ class Coupon(models.Model):
   title = models.CharField(max_length=500)
   description = models.TextField()
   code = models.CharField(max_length=100)
-  category = models.ForeignKey(Category, on_delete=models.CASCADE)
+  category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="category_coupon")
   company = models.ForeignKey(Company, on_delete=models.CASCADE)
   added_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='add', default="")
   collected_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="collect", null=True, blank=True)
   validity = models.DateField()
   used = models.BooleanField(default=False)
   image = models.ImageField(upload_to='coupon_image/', null=True)
-
-  # def delete(self, using=None, keep_parents=False):
-  #   self.image.storage.delete(self..name)
-  #   self.image.storage.delete(self.song.name)
-  #   super().delete()
-
-
-  
 
 class UserProfile(models.Model):
   user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -51,7 +43,4 @@ def create_user_profile(sender, instance, created, **kwargs):
     if created:
         UserProfile.objects.create(user=instance)
 
-# @receiver(post_save, sender=User)
-# def save_user_profile(sender, instance, **kwargs):
-#     instance.userprofile.save()
 

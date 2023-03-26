@@ -1,9 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .forms import CouponForm
 from django.views import View
 from django.contrib import messages
-from .models import UserProfile, User
-from .forms import Category, Company, Coupon,  CouponForm, CustomerRegistrationForm, CompanyForm, CategoryForm, UserProfileForm, UserProfileForm2
+from .models import UserProfile
+from .forms import (Category, Company, Coupon,  CouponForm, CustomerRegistrationForm, CompanyForm, CategoryForm, UserProfileForm, UserProfileForm2)
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
@@ -13,6 +13,7 @@ from django.db.models import Count, F
 from datetime import date
 import os
 from django.db import connection 
+from django.db.models import Q
  
 def custom_sql(sql, values): 
     with connection.cursor() as cursor: 
@@ -23,7 +24,9 @@ def custom_sql(sql, values):
 # Create your views here.
 class Home(View):
   def get(self, request):
-    ct = Category.objects.all()
+    ct = Category.objects.prefetch_related('category_coupon')
+    # print(f'\n\n{ct}\n')
+    # print(f'{ct.query}\n')
     cp = Coupon.objects.filter(collected_by=None, validity__gt=date.today()).order_by('-id')
     return render(request, 'myapp/index.html', dict(ct=ct, cp=cp))
 
@@ -143,14 +146,18 @@ class CategoryShow(View):
 @method_decorator(login_required, name='dispatch')
 class CollectCoupon(View):
   def get(self, request, pk):
-    cp = Coupon.objects.filter(id=pk)
-    cp.update(collected_by=request.user)
-    profiledetail = UserProfile.objects.filter(user_id=request.user.id)
-    profiledetail.update(credits=F('credits') - 1)
-    data = dict(cp=cp, profiledetail=profiledetail)
-    return render(request, 'myapp/profile.html', data)
-
-
+    user = UserProfile.objects.get(user=request.user)
+    if user.credits > 0:
+      cp = Coupon.objects.filter(id=pk)
+      cp.update(collected_by=request.user)
+      profiledetail = UserProfile.objects.filter(user_id=request.user.id)
+      profiledetail.update(credits=F('credits') - 1)
+      data = dict(cp=cp, profiledetail=profiledetail)
+      return render(request, 'myapp/profile.html', data)
+    else:
+      messages.warning(request, "Your credits score is Zero, add some coupons to get score")
+      return redirect("add-coupon")
+    
 @method_decorator(login_required, name='dispatch')
 class FullDetail(DetailView):
   def get(self, request, pk):
@@ -173,7 +180,6 @@ class UpdateProfile(View):
     old_image = ""
     if request.user.userprofile.dp:
       old_image = request.user.userprofile.dp.path
-      print("old image :", old_image)
     fm = UserProfileForm(data=request.POST, instance=request.user)
     fm2 = UserProfileForm2(request.POST, request.FILES, instance=request.user.userprofile)
     if fm.is_valid() and fm2.is_valid():
@@ -234,8 +240,14 @@ class Detail(DetailView):
   template_name = 'myapp/detail.html'
   context_object_name = 'cp'
 
-# def checkout(request):
-#   return render(request, 'myapp/checkout.html')
+class Search(View):
+  def post(self, request):
+    s = request.POST.get('search').strip()
+    print(s)
+    search = Coupon.objects.filter((Q(title__icontains=s) | Q(description__icontains=s)), collected_by=None, validity__gt=date.today())
+    print(search.query)
+    context = dict(search=search, s=s)
+    return render(request, 'myapp/search.html', context)
+  
 
-# def cart(request):
-#   return render(request, 'myapp/cart.html')
+  

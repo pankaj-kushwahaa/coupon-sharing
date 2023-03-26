@@ -35,6 +35,8 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(next_page='login'), name="logout"),
     path('registration/', views.CustomerRegistration.as_view(), name='customerregistration'),
 
+    path('search/', views.Search.as_view(), name="search"),
+
 ]
 
 # if settings.DEBUG:
