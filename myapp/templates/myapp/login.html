@@ -20,10 +20,10 @@
         {{fm.label_tag}} {{fm}} <small class="text-danger">{{fm.errors|striptags}}</small> <br>
     </div>
     {% endfor %}
-    <small><a href="{% url 'password-reset' %}">Forgot Password ?</a></small> <br>
+    <small><a href="{% url 'password-reset' %}" class="text-danger">Forgot Password ?</a></small> <br>
     <input type="submit" class="btn btn-primary mt-4" value="Login">
     <br>
-    <div class="text-center text-primary fw-bold"><small>New to Reward Center ? <a href="{% url 'customerregistration' %}" class="text-danger">Create an Account</a> </small></div>
+    <div class="text-center text-primary fw-bold"><small class="text-success">New to Reward Center ? <a href="{% url 'customerregistration' %}" class="text-danger">Create an Account</a> </small></div>
    </form>
   </div>
  </div>

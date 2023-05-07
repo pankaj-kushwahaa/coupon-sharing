@@ -6,11 +6,7 @@
 {% include 'myapp/profile-mid-portion.html' %}
 {% endblock profileheader %}
 
-
-
 {% block content %}
-
-
 <div class="row px-xl-5">
   <div class="container-fluid pt-5 pb-3">
     <h4 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Add Category</span></h4>
@@ -20,9 +16,7 @@
       <p {% if message.tags %} class="alert alert-{{message.tags}} mb-5" {% endif %}> {{message}} </p>
       {% endfor %}
    {% endif %}
-      <div class="col-md-10">
-
-      
+      <div class="col-md-10"> 
         <form action="" method="post" novalidate class="shadow p-3" enctype="multipart/form-data">
           {% if form.non_field_errors %}
           {% for error in form.non_field_errors %}

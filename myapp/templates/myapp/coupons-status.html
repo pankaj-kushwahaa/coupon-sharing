@@ -1,0 +1,53 @@
+{% extends 'myapp/base.html' %}
+{% load static %}
+{% block title %}Profile{% endblock title %}
+
+{% block profileheader %}
+{% include 'myapp/profile-mid-portion.html' %}
+{% endblock profileheader %}
+
+{% block content %}
+  <div class="container pt-5 pb-3">
+    <h4 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Coupons Status</span></h4>
+    <div class="row px-xl-5">
+
+      {% if messages %}
+        {% for message in messages %}
+        <p {% if message.tags %} class="alert alert-{{message.tags}} mb-5" {% endif %}> {{message}} </p>
+        {% endfor %}
+      {% endif %}
+
+      {% if coupons %}
+      <table class="table">
+        <thead>
+          <tr>
+            <th>S no</th>
+            <th>Image</th>
+            <th>Title</th>
+            <th>Category</th>
+            <th>Company</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for c in coupons %}
+          <tr>
+            <td>{{forloop.counter}}</td>
+            <td><img src="{{c.image.url}}" alt="Coupon Image" width="80px" height="80px"></td>
+            <td>{{c.title}}</td>
+            <td>{{c.category}}</td>
+            <td>{{c.company}}</td>
+            <td><button class="btn btn-warning"> {% if c.approved == False %} Pending {% endif %}</button></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+        <div>No Coupons</div>
+      {% endif %}
+
+    </div>
+</div>
+
+</div>
+{% endblock content %}

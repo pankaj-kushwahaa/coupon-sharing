@@ -19,6 +19,9 @@ urlpatterns = [
     path('added-coupons/', views.AddedCoupons.as_view(), name="added-coupons"),
     path('expired-coupons/', views.ExpiredCoupons.as_view(), name="expired-coupons"),
     path('company-wise/<int:pk>', views.CompanyWise.as_view(), name="company-wise"),
+    path('approve-coupons/', views.ApproveCoupons.as_view(), name="approve-coupons"),
+    path('used-coupons/', views.UsedCoupons.as_view(), name="used-coupons"),
+    path('coupon-status', views.CouponStatus.as_view(), name="coupon-status"),
 
     path('profile-update/', views.UpdateProfile.as_view(), name="profile-update"),
     path('contact/', views.Contact.as_view(), name="contact"),

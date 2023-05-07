@@ -13,7 +13,7 @@ class CompanyAdmin(admin.ModelAdmin):
 @admin.register(Coupon)
 class CouponAdmin(admin.ModelAdmin):
   list_display = ['title', 'description', 'code', 'company','category', 'added_by', 
-  'collected_by', 'validity', 'used']
+  'collected_by', 'validity', 'used', 'approved', 'id']
 
 @admin.register(UserProfile)
 class UserProfileAdmin(admin.ModelAdmin):

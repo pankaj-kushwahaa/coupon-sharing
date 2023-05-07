@@ -31,6 +31,7 @@ class Coupon(models.Model):
   collected_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="collect", null=True, blank=True)
   validity = models.DateField()
   used = models.BooleanField(default=False)
+  approved = models.BooleanField(default=False)
   image = models.ImageField(upload_to='coupon_image/', null=True)
 
 class UserProfile(models.Model):
@@ -40,7 +41,7 @@ class UserProfile(models.Model):
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
-    if created:
-        UserProfile.objects.create(user=instance)
+  if created:
+    UserProfile.objects.create(user=instance)
 
 
